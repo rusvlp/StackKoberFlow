@@ -46,11 +46,9 @@ public class Question {
         dateOfCreate = LocalDateTime.now();
     }
 
-    public void addImageToQuestion(List<Image> images){
-        for (Image i: images){
-            i.setQuestion(this);
-            this.images.add(i);
-        }
+    public void addImageToQuestion(Image image){
+        image.setQuestion(this);
+        this.images.add(image);
     }
 
     public int numberOfImages(){

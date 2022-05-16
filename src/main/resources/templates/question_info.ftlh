@@ -17,6 +17,10 @@
     <div class = "images">
         <#list images as image>
             <img src = "/images/${image.id}">
+            <#else>
+            <div>
+                <h3>Изображений нет</h3>
+            </div>
         </#list>
     </div>
     <form action = "/question/delete/${question.id}" method = "post">

@@ -19,6 +19,10 @@ public class MainController {
         this.questionService = questionService;
     }
 
+    @GetMapping("/question/ask")
+    public String ask(){
+        return "ask";
+    }
 
     @GetMapping("/")
     public String mainPage(@RequestParam(name = "title", required = false) String title, Model model){                        // Model необходимо для передачи данных в шаблонизатор (у нас не обычный HTML, а FreeMarker)
@@ -31,19 +35,17 @@ public class MainController {
         return "main";
     }
 
+
     @GetMapping("/question/{id}")
     public String questionInfo(@PathVariable long id, Model model){
         Question q = questionService.getQuestionById(id);
         model.addAttribute("question", q);
         model.addAttribute("images", q.getImages());
+
         return "question_info";
     }
 
-    @PostMapping("/question/ask")
-    public String ask(Question q, @RequestParam(value = "images", required = false) List<MultipartFile> images ){
-        questionService.addQuestion(q, images);
-        return "redirect:/";
-    }
+
 
 
     @PostMapping("/question/delete/{id}")

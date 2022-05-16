@@ -31,39 +31,16 @@ public class QuestionService{
         return questionRepository.findByTitle(title);
     }
 
-    public void addQuestion(Question q, List<MultipartFile> files){
-        if (files != null && files.size() != 0) {
-            List<Image> li = files
-                    .stream()
-                    .filter(f -> f.getSize() != 0)
-                    .map(f -> toImage(f))
-                    .collect(Collectors.toList());
-
-            q.addImageToQuestion(li);
-            System.out.println(files);
-        }
+    public void addQuestion(Question q){
         Integer rate = Integer.valueOf(0);
         q.setRating(rate);
         log.info("Saved question. Title: " + q.getTitle() + ", author: " + q.getAuthor());
         this.questionRepository.save(q);
-        System.out.println(q);
+
 
     }
 
-    public Image toImage(MultipartFile file){
-        try {
-            Image image = new Image();
-            image.setName(file.getName());
-            image.setOriginalFileName(file.getOriginalFilename());
-            image.setContentType(file.getContentType());
-            image.setSize(file.getSize());
-            image.setBytes(file.getBytes());
-            return image;
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
 
-    }
 
     public void deleteQuestion(Long ... ids){
         List<Long> idList = Arrays.asList(ids);

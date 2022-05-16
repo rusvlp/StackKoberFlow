@@ -22,21 +22,9 @@
                     <h3>Вопросов нет</h3>
             </div>
         </#list>
-        <h3> Задать вопрос </h3>
-        <form action="/question/ask" method="post" enctype="multipart/form-data">
-            <label for = "questionTitle">Краткая суть вопроса: </label>
-            <input type="text" name = "title" id = "questionTitle"/>
-            <label for = "questionItself">Сам вопрос: </label>
-            <input type = "text" name="questionItself" id = "questionItself"/>
-            <label for = "authorName">Имя автора</label>
-            <input type = "text" name = "author" id = "authorName"/>
-            <h3>Прикрепите изображения: </h3>
-            <div class = "images">
-            </div>
-            <input type = "submit" value = "Задать">
-        </form>
-       <button onclick="addPlaceForImage()">+</button>
-        <!--script>
+        <a href = "/question/ask/">Задать вопрос</a>
+
+        <!---script>
             let imageCounter = 0;
             let imageDiv = '<div class = "image"> <label for = "imagePlace' + imageCounter +'"> <input type = "file" name = "images" id = "imagePlace' + imageCounter +'"> </div>'
             let imagePlaceHolder = document.querySelector(".images")
