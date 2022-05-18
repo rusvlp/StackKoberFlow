@@ -4,7 +4,8 @@
         <title></title>
     </head>
     <body>
-       <h1>StackKoberFlow</h1>
+       <h1>StackKoberFlow | <a href = "/login">Войти</a></h1>
+
        <form action = "/" method = "get">
            <label for = "qTitle">Поиск по названию вопроса: </label>
            <input type="text" name = "title" id = "qTitle"/>
