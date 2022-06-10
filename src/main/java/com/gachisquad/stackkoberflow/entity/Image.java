@@ -3,6 +3,7 @@ package com.gachisquad.stackkoberflow.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -32,7 +33,7 @@ public class Image{
 
     @Lob                                            //longblob в базе данных
     private byte[] bytes;
-
+    @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)     // fetch EAGER - при загрузке Image мы получаем все связанные с ней сущности
     private Question question;
 }

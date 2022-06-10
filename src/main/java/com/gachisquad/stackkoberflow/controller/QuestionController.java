@@ -3,6 +3,7 @@ package com.gachisquad.stackkoberflow.controller;
 import com.gachisquad.stackkoberflow.entity.Image;
 import com.gachisquad.stackkoberflow.entity.Question;
 import com.gachisquad.stackkoberflow.request.QuestionWithImageRequest;
+import com.gachisquad.stackkoberflow.respond.StringRespond;
 import com.gachisquad.stackkoberflow.services.ImageService;
 import com.gachisquad.stackkoberflow.services.QuestionService;
 import com.gachisquad.stackkoberflow.services.QuestionWithImageRequestService;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,24 +42,26 @@ public class QuestionController {
     } */
 
     @PostMapping("/question/add")
-    public Long ask(@RequestBody Map<String, String> question){
-        Question q = new Question();
-        q.setTitle(question.get("title"));
-        q.setQuestionItself(question.get("questionItself"));
-        q.setAuthor(question.get("author"));
-        int numberOfImages = Integer.parseInt(question.get("noi"));
+    public Long ask(Question q, Principal principal){
+
+        int numberOfImages = q.noi;
         if (numberOfImages > 0){
-            QuestionWithImageRequest qi = new QuestionWithImageRequest(q, numberOfImages, this.questionService, this.qws);
+            QuestionWithImageRequest qi = new QuestionWithImageRequest(q, numberOfImages, this.questionService, this.qws, principal);
             return (long)qi.getId();
         } else{
-            questionService.addQuestion(q);
+            questionService.addQuestion(principal, q);
         }
         return q.getId();
     }
 
+    @GetMapping("/successCreated")
+    public ModelAndView successCreated(Map<String, String> body){
+        return new ModelAndView("successCreated");
+    }
+
     @PostMapping("/question/{id}/addImage")
     public void addImage(@RequestParam(name = "file") MultipartFile file, @PathVariable Integer id){
-        System.out.println(file);
+
         /*List<Image> li = files
                 .stream()
                 .map((f) -> toImage(f))
@@ -65,9 +69,22 @@ public class QuestionController {
         Image i = toImage(file);
         QuestionWithImageRequest qi = qws.getByQuestionId(id);
         qi.addImage(i);
+
+        //qi.getQuestion().getId();
     }
 
 
+
+    @PostMapping("/question/delete/{id}")
+    public ModelAndView deleteQuestion(@PathVariable Long id, Principal p){
+        System.out.println("deleted question " + id);
+        ModelAndView mav = new ModelAndView("successDeleted");
+        mav.addObject("questionTitle", questionService.getQuestionById(id).getTitle());
+        System.out.println(p);
+        questionService.deleteQuestion(id);
+
+        return mav;
+    }
 
     private Image toImage(MultipartFile file){
         try {

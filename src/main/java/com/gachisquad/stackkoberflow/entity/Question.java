@@ -3,6 +3,7 @@ package com.gachisquad.stackkoberflow.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data                    // аннотация lombok, добавляющая геттеры и сеттеры на все поля
 @AllArgsConstructor
 @NoArgsConstructor
+//@ToString
 public class Question {
 
     @Id
@@ -30,8 +32,6 @@ public class Question {
     @Column(name = "rating")
     private Integer rating;
 
-    @Column(name = "author")
-    public String author;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")   //при загрузке вопроса (к примеру при отображении в списке), все фотографии не загружаются (а зачем нам впустую тратить ресурсы?)
                                                                                             //при удалении вопроса удаляются и все связанные с ним фотографии, при сохранении вопрос сохраняются все связанные с ним фотографии
@@ -46,6 +46,10 @@ public class Question {
         dateOfCreate = LocalDateTime.now();
     }
 
+    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private User author;
     public void addImageToQuestion(Image image){
         image.setQuestion(this);
         this.images.add(image);
@@ -54,4 +58,6 @@ public class Question {
     public int numberOfImages(){
         return images.size();
     }
+
+    public int noi;
 }

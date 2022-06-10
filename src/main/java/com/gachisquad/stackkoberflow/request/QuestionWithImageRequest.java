@@ -7,6 +7,7 @@ import com.gachisquad.stackkoberflow.services.QuestionService;
 import com.gachisquad.stackkoberflow.services.QuestionWithImageRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,14 @@ public class QuestionWithImageRequest {
     private Question question;
     private int numberOfImages;
     private final QuestionService qs;
+    private final Principal principal;
 
-    public QuestionWithImageRequest(Question q, int noi, QuestionService qs, QuestionWithImageRequestService qws){
+    public QuestionWithImageRequest(Question q, int noi, QuestionService qs, QuestionWithImageRequestService qws, Principal principal){
         this.question = q;
         this.numberOfImages = noi;
         this.qs = qs;
         this.qws = qws;
+        this.principal = principal;
         qws.pool.add(this);
     }
 
@@ -47,7 +50,7 @@ public class QuestionWithImageRequest {
         this.question.addImageToQuestion(i);
         if (this.question.getImages().size() == this.numberOfImages){
             System.out.println("question added");
-            qs.addQuestion(this.question);
+            qs.addQuestion(principal, this.question);
             return;
         }
     }

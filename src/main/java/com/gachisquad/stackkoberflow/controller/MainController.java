@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +26,14 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String mainPage(@RequestParam(name = "title", required = false) String title, Model model){                        // Model необходимо для передачи данных в шаблонизатор (у нас не обычный HTML, а FreeMarker)
+    public String mainPage(@RequestParam(name = "title", required = false) String title, Principal p, Model model){                        // Model необходимо для передачи данных в шаблонизатор (у нас не обычный HTML, а FreeMarker)
         if (title == null){
             model.addAttribute("questions", questionService.getQuestions());                       // "questions" - ключ атрибута, qS.gQ() - значение
         } else {
             model.addAttribute("questions", questionService.getQuestionsByTitle(title));
         }
-
+        model.addAttribute("user", questionService.getUserByPrincipal(p));
+        System.out.println(questionService.getUserByPrincipal(p));
         return "main";
     }
 
@@ -48,10 +50,6 @@ public class MainController {
 
 
 
-    @PostMapping("/question/delete/{id}")
-    public String deleteQuestion(@PathVariable Long id){
-        questionService.deleteQuestion(id);
-        return "redirect:/";
-    }
+
 
 }

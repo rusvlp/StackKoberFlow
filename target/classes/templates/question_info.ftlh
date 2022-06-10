@@ -13,7 +13,7 @@
     <b>Рейтинг вопроса: </b>
     ${question.rating} <br>
     <b>Автор вопроса: </b>
-    ${question.author} <br>
+    ${question.author.username} <br>
     <div class = "images">
         <#list images as image>
             <img src = "/images/${image.id}">
@@ -25,6 +25,7 @@
     </div>
     <form action = "/question/delete/${question.id}" method = "post">
         <input type = "submit" value = "Удалить вопрос">
+        <input type="hidden" name = "_csrf" value = "${_csrf.token}" id = "csrf">
     </form>
     <!--script>
         let imageCount = ${question.numberOfImages()}
