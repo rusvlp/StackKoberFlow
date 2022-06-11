@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class QuestionService{
         return userRepository.findByEmail(principal.getName());
     }
 
-
+    @Transactional
     public void deleteQuestion(Long id){
 
         this.questionRepository.deleteById(id);

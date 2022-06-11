@@ -55,8 +55,10 @@ public class QuestionController {
     }
 
     @GetMapping("/successCreated")
-    public ModelAndView successCreated(Map<String, String> body){
-        return new ModelAndView("successCreated");
+    public ModelAndView successCreated(Principal p){
+        ModelAndView mav = new ModelAndView("successCreated");
+        mav.addObject("user", questionService.getUserByPrincipal(p));
+        return mav;
     }
 
     @PostMapping("/question/{id}/addImage")

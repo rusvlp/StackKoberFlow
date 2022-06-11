@@ -3,6 +3,9 @@ package com.gachisquad.stackkoberflow.entity;
 
 import com.gachisquad.stackkoberflow.enums.Role;
 import lombok.Data;
+import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -40,8 +43,14 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "author")
     private List<Question> question = new ArrayList<>();
+
+
+    @ToString.Exclude
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "author")
+    private List<Answer> answers = new ArrayList<>();
+
 
     private LocalDateTime dateOfCreate;
 

@@ -55,6 +55,9 @@ public class Question {
         this.images.add(image);
     }
 
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
     public int numberOfImages(){
         return images.size();
     }

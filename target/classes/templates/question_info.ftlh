@@ -16,11 +16,22 @@
     ${question.author.username} <br>
     <div class = "images">
         <#list images as image>
-            <img src = "/images/${image.id}">
+            <div class = "sad">
+                <img src = "/images/${image.id}">
+            </div>
             <#else>
             <div>
                 <h3>Изображений нет</h3>
             </div>
+        </#list>
+    </div>
+    <div class = "answers">
+        <#list question.answers as answer>
+            <h2>Автор: ${answer.author.username}</h2> <br>
+            <h3>Ответ: <br> ${answer.answerItself}</h3>
+            <h3>Рейтинг ${answer.rating}</h3>
+        <#else>
+            <h3>Ответов нет</h3>
         </#list>
     </div>
     <form action = "/question/delete/${question.id}" method = "post">

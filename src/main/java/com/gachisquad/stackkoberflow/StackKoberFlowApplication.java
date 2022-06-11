@@ -12,9 +12,9 @@ public class StackKoberFlowApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StackKoberFlowApplication.class, args);
-        for (int i = 1000; i>6 ; i-=7){
+        /*for (int i = 1000; i>6 ; i-=7){
             System.out.println(Integer.toString(i) + " - 7 = " + Integer.toString(i - 7));
-        }
+        }*/
 
 
     }

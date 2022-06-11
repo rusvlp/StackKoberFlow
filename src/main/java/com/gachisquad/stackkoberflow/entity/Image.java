@@ -36,4 +36,9 @@ public class Image{
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)     // fetch EAGER - при загрузке Image мы получаем все связанные с ней сущности
     private Question question;
+
+    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Answer answer;
 }
