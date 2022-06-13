@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class QuestionService{
     private final QuestionRepository questionRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public List<Question> getQuestions(){
         return questionRepository.findAll();
@@ -36,7 +36,7 @@ public class QuestionService{
     }
 
     public void addQuestion(Principal principal, Question q){
-        q.setAuthor(getUserByPrincipal(principal));
+        q.setAuthor(userService.getUserByPrincipal(principal));
         Integer rate = Integer.valueOf(0);
         q.setRating(rate);
         //log.info("Saved question. Title: " + q.getTitle() + ", author: " + q.getAuthor());
@@ -45,10 +45,7 @@ public class QuestionService{
 
     }
 
-    public User getUserByPrincipal(Principal principal) {
-        if (principal == null) return new User();
-        return userRepository.findByEmail(principal.getName());
-    }
+
 
     @Transactional
     public void deleteQuestion(Long id){
@@ -59,4 +56,10 @@ public class QuestionService{
     public Question getQuestionById(long id){
         return this.questionRepository.findById(id).orElseThrow(() -> new NotFoundException());  //дефолтная реализация findById(T id) возвращает Optional
     }
+
+    public void saveQuestion(Question q){
+        this.questionRepository.save(q);
+    }
+
+
 }

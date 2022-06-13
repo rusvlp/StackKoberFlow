@@ -43,6 +43,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
+    @ToString.Exclude
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "author")
     private List<Question> question = new ArrayList<>();
 
@@ -51,6 +52,9 @@ public class User implements UserDetails {
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "author")
     private List<Answer> answers = new ArrayList<>();
 
+    public void addAnswer(Answer a){
+        this.answers.add(a);
+    }
 
     private LocalDateTime dateOfCreate;
 

@@ -7,13 +7,12 @@ import lombok.ToString;
 
 import javax.naming.Name;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "answers")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +26,7 @@ public class Answer {
     private Integer rating;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "answer")
-    private List<Image> image;
+    private List<Image> image = new ArrayList<>();
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
@@ -39,4 +38,32 @@ public class Answer {
     @JoinColumn
     private User author;
 
+    public void addImageToAnswer(Image image){
+        image.setAnswer(this);
+        this.image.add(image);
+    }
+
+    @ManyToMany
+    private List<User> increased = new ArrayList<>();
+
+    @ManyToMany
+    private List<User> decreased = new ArrayList<>();
+
+    public void addIncreased(User user){
+        this.increased.add(user);
+    }
+
+    public void addDecreased(User user){
+        this.decreased.add(user);
+    }
+
+    public void removeIncreased(User user) {
+        this.increased.remove(user);
+    }
+
+    public void removeDecreased(User user){
+        this.decreased.remove(user);
+    }
+
+    public int noi;
 }

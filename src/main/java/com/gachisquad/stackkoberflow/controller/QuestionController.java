@@ -2,11 +2,13 @@ package com.gachisquad.stackkoberflow.controller;
 
 import com.gachisquad.stackkoberflow.entity.Image;
 import com.gachisquad.stackkoberflow.entity.Question;
+import com.gachisquad.stackkoberflow.entity.User;
 import com.gachisquad.stackkoberflow.request.QuestionWithImageRequest;
 import com.gachisquad.stackkoberflow.respond.StringRespond;
 import com.gachisquad.stackkoberflow.services.ImageService;
 import com.gachisquad.stackkoberflow.services.QuestionService;
 import com.gachisquad.stackkoberflow.services.QuestionWithImageRequestService;
+import com.gachisquad.stackkoberflow.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -24,16 +26,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-
 public class QuestionController {
-    public final QuestionService questionService;
-    public final ImageService imageService;
-    public final QuestionWithImageRequestService qws;
+    private final QuestionService questionService;
+    private final ImageService imageService;
+    private final QuestionWithImageRequestService qws;
+    private final UserService userService;
 
-    public QuestionController(QuestionService qs, ImageService is, QuestionWithImageRequestService qws){
+    public QuestionController(QuestionService qs, ImageService is, QuestionWithImageRequestService qws, UserService us){
         this.questionService = qs;
         this.imageService = is;
         this.qws = qws;
+        this.userService = us;
     }
 
    /* @GetMapping("/question/ask")
@@ -57,7 +60,7 @@ public class QuestionController {
     @GetMapping("/successCreated")
     public ModelAndView successCreated(Principal p){
         ModelAndView mav = new ModelAndView("successCreated");
-        mav.addObject("user", questionService.getUserByPrincipal(p));
+        mav.addObject("user", userService.getUserByPrincipal(p));
         return mav;
     }
 
@@ -68,7 +71,7 @@ public class QuestionController {
                 .stream()
                 .map((f) -> toImage(f))
                 .collect(Collectors.toList()); */
-        Image i = toImage(file);
+        Image i = imageService.toImage(file);
         QuestionWithImageRequest qi = qws.getByQuestionId(id);
         qi.addImage(i);
 
@@ -79,6 +82,9 @@ public class QuestionController {
 
     @PostMapping("/question/delete/{id}")
     public ModelAndView deleteQuestion(@PathVariable Long id, Principal p){
+        if (userService.getUserByPrincipal(p) != questionService.getQuestionById(id).getAuthor()){
+            ModelAndView mav = new ModelAndView("unsuccessDelete");
+        }
         System.out.println("deleted question " + id);
         ModelAndView mav = new ModelAndView("successDeleted");
         mav.addObject("questionTitle", questionService.getQuestionById(id).getTitle());
@@ -88,18 +94,51 @@ public class QuestionController {
         return mav;
     }
 
-    private Image toImage(MultipartFile file){
-        try {
-            Image image = new Image();
-            image.setName(file.getName());
-            image.setOriginalFileName(file.getOriginalFilename());
-            image.setContentType(file.getContentType());
-            image.setSize(file.getSize());
-            image.setBytes(file.getBytes());
-            return image;
-        } catch (IOException e){
-            throw new RuntimeException(e);
+    @PostMapping("/question/{id}/increaseRating")
+    public ModelAndView increase(@PathVariable Long id, Principal p){
+        User user = userService.getUserByPrincipal(p);
+        Question question = questionService.getQuestionById(id);
+        if (question.getIncreased().contains(user)){
+            ModelAndView mav = new ModelAndView("unsuccess");
+            mav.addObject("text", "повысить рейтинг вопроса, так как вы его уже повышали!");
+            mav.addObject("user", user);
+            return mav;
         }
 
+        if (question.getDecreased().contains(user)){
+            question.removeDecreased(user);
+        } else {
+            question.addIncreased(user);
+        }
+
+        question.setRating(question.getRating()+1);
+
+        questionService.saveQuestion(question);
+        return new ModelAndView("redirect:/question/" + id);
+    }
+
+    @PostMapping("/question/{id}/decreaseRating")
+    public ModelAndView decrease(@PathVariable Long id, Principal p){
+        User user = userService.getUserByPrincipal(p);
+        Question question = questionService.getQuestionById(id);
+
+        if (question.getDecreased().contains(user)){
+            ModelAndView mav = new ModelAndView("unsuccess");
+            mav.addObject("text", "понизить рейтинг вопроса, так как вы его уже понижали!");
+            mav.addObject("user", user);
+            return mav;
+        }
+
+        if (question.getIncreased().contains(user)){
+            question.removeIncreased(user);
+        } else {
+            question.addDecreased(user);
+        }
+
+        question.setRating(question.getRating()-1);
+
+
+        questionService.saveQuestion(question);
+        return new ModelAndView("redirect:/question/" + id);
     }
 }

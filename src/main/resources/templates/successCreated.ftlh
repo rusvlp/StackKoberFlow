@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Вопрос успешно создан</title>
-    </head>
-    <body>
-        <#if user?? && user.email??>
-            <p>Имя пользователя: ${user.email}</p>
-        </#if>
-        <h1>Вопрос успешно задан</h1> <br>
-        <a href = "/">На главную</a>
-    </body>
-</html>
+<#import "blocks/template.ftlh" as t>
+    <@t.template user>
+    <div style="height: 150px; width: 600px; margin: 0 auto; text-align: center;"></div>
+    <div class="white">
+        <div class="toindex2">Вопрос успешно задан.</div>
+        <div class="toindex2"><a href="/" class="strong">Вернуться на главную</a></div>
+    </div>
+</@t.template>

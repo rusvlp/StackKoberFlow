@@ -50,6 +50,7 @@ public class Question {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private User author;
+
     public void addImageToQuestion(Image image){
         image.setQuestion(this);
         this.images.add(image);
@@ -58,9 +59,36 @@ public class Question {
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
+
+    public void addAnswer(Answer a){
+        this.answers.add(a);
+    }
+
     public int numberOfImages(){
         return images.size();
     }
 
+    @ManyToMany
+    private List<User> increased = new ArrayList<>();
+
+    @ManyToMany
+    private List<User> decreased = new ArrayList<>();
     public int noi;
+
+    public void addIncreased(User user){
+        this.increased.add(user);
+    }
+
+    public void addDecreased(User user){
+        this.decreased.add(user);
+    }
+
+    public void removeIncreased(User user) {
+        this.increased.remove(user);
+    }
+
+    public void removeDecreased(User user){
+        this.decreased.remove(user);
+    }
+
 }

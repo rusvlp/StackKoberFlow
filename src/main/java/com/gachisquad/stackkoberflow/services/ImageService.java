@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Service
 
 public class ImageService {
@@ -25,6 +27,20 @@ public class ImageService {
     }
 
     public void addImageToQuestion(MultipartFile file){
+
+    }
+    public Image toImage(MultipartFile file){
+        try {
+            Image image = new Image();
+            image.setName(file.getName());
+            image.setOriginalFileName(file.getOriginalFilename());
+            image.setContentType(file.getContentType());
+            image.setSize(file.getSize());
+            image.setBytes(file.getBytes());
+            return image;
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
 
     }
 }

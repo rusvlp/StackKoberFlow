@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> 
+    <title>ASK form</title>
+</head>
+<body>
+    <div style="height: 150px; width: 600px; margin: 0 auto; text-align: center;"></div>
+    <div class="maindiv">
+        <div class="logo2">
+            <div class="headerofsite"> StackKoberFlow </div>
+            <div class="logo"> <img src="images/soflogo.jpg"> </div>
+        </div>
+        <div class="blackline"></div>
+        <div class="autorization">Задать вопрос</div>
+        <form action="/ask" method="post">
+            <ep>Краткая суть вопроса:</ep> <input type="text" class="ep" name="questionmin"><br>
+            <ep>Сам вопрос:</ep> <textarea name="questionmax" class="txtarea"></textarea><br>
+        </form>
+        <div class="autorization">Прикрепите изображения: </div>
+        <div class="page-block">
+            <button type="button" name="searchbtn2"><su2>Выберите файл</su2></button> <su2>Файл не выбран</su2> 
+        </div>
+        <button type="button" class="addBtn">+</button> <br> 
+        <button type="button" name="searchbtn2" style="margin-bottom: 20px;"><naiti> <a href="newquestion.html"><aa>Задать</aa></a> </naiti></button>
+    </div>
+    
+
+</body>
+</html>
