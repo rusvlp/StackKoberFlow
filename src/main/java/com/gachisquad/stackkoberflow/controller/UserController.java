@@ -8,6 +8,7 @@ import com.gachisquad.stackkoberflow.services.CustomUserDetailsService;
 import com.gachisquad.stackkoberflow.services.ImageService;
 import com.gachisquad.stackkoberflow.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,20 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService customUserDetailsService;
     private final ImageService imageService;
+
+    @GetMapping("/user/activate/{code}")
+    public String activate(@PathVariable String code, Principal p, Model m){
+        System.out.println(code);
+        User pr = userService.getUserByPrincipal(p);
+        m.addAttribute("user", pr);
+        User user = userService.getUserByActivationCode(code);
+        if (user == null){
+            return "unsuccessActivated";
+        }
+        user.setActive(true);
+        userService.saveUser(user);
+        return "successActivated";
+    }
 
     @PostMapping("/user/addAvatar")
     public String addAvatar(@RequestParam(name = "image")MultipartFile file, Principal p){
@@ -77,12 +92,13 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String createUser(User user, Model model){
+    public String createUser(User user, Model model, Principal p){
         if (!userService.createUser(user)){
             model.addAttribute("errorMessage", "Пользователь с таким Email уже существует");
             return "reg";
         };
-        return "redirect:/login";
+        model.addAttribute("user", userService.getUserByPrincipal(p));
+        return "checkEmail";
     }
 
     @GetMapping("/hello")

@@ -4,6 +4,7 @@ import com.gachisquad.stackkoberflow.entity.Answer;
 import com.gachisquad.stackkoberflow.entity.Image;
 import com.gachisquad.stackkoberflow.entity.Question;
 import com.gachisquad.stackkoberflow.services.CategoryService;
+import com.gachisquad.stackkoberflow.services.MailSender;
 import com.gachisquad.stackkoberflow.services.QuestionService;
 import com.gachisquad.stackkoberflow.services.UserService;
 import org.springframework.boot.Banner;
@@ -24,11 +25,13 @@ public class MainController {
     private final QuestionService questionService;               //final - при создании контроллера сразу же инжектится поле
     private final UserService userService;
     private final CategoryService categoryService;
+    private final MailSender mailSender;
 
-    public MainController(QuestionService questionService, UserService us, CategoryService cs) {     // конструктор с полем для сервиса. Спринг сам заинжектит класс, помеченый @Component
+    public MainController(QuestionService questionService, UserService us, CategoryService cs, MailSender ms) {     // конструктор с полем для сервиса. Спринг сам заинжектит класс, помеченый @Component
         this.questionService = questionService;
         this.userService = us;
         this.categoryService = cs;
+        this.mailSender = ms;
     }
 
     @GetMapping("/question/ask")
@@ -40,6 +43,7 @@ public class MainController {
 
     @GetMapping("/")
     public String mainPage(@RequestParam(name = "category", required = false) Long categoryId,  @RequestParam(name = "sort", required = false) String sort, @RequestParam(name = "title", required = false) String title, Principal p, Model model){
+
         model.addAttribute("user", userService.getUserByPrincipal(p));                                                                                          // Model необходимо для передачи данных в шаблонизатор (у нас не обычный HTML, а FreeMarker)
         model.addAttribute("categories", categoryService.getAllCategories());
 

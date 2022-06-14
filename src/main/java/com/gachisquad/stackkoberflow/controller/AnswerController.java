@@ -26,6 +26,7 @@ public class AnswerController {
     private final ImageService imageService;
     private final QuestionService questionService;
     private final UserService userService;
+    private final MailSender mailSender;
 
     @PostMapping("/question/{id}/addAnswer")
     public Long addAnswer(@PathVariable Long id, Answer a, Principal principal){
@@ -34,10 +35,11 @@ public class AnswerController {
         questionService.getQuestionById(id).addAnswer(a);
         int numberOfImages = a.noi;
         if (numberOfImages > 0){
-            AnswerWithImageRequest ai = new AnswerWithImageRequest(a, numberOfImages, this.answerWithImageRequestService, this.answerService, principal);
+            AnswerWithImageRequest ai = new AnswerWithImageRequest(a, numberOfImages, this.answerWithImageRequestService, this.answerService, principal, mailSender, questionService.getQuestionById(id).getAuthor().getEmail());
             return (long)ai.getId();
         } else{
             answerService.addAnswer(a, principal);
+            mailSender.send(questionService.getQuestionById(id).getAuthor().getEmail(), "У вас новый ответ на вопрос!", "Кто-то ответил на ваш вопрос, проверьте: http://localhost:8080/question/"+id);
         }
         System.out.println(a.getId());
         return a.getId();

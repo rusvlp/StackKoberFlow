@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -18,7 +19,7 @@ import java.security.Principal;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final MailSender mailSender;
 
 
     public User getUserById(Long id){
@@ -34,7 +35,12 @@ public class UserService {
         if (userRepository.findByEmail(email) != null){
             return false;
         }
-        user.setActive(true);
+
+        user.setVerificationCode(UUID.randomUUID().toString());
+
+        mailSender.send(user.getEmail(), "Регистрация на StackKoberFlow", "Добро пожаловать на StackKoberFlow! Перейдите по следующей ссылке, чтобы активировать аккаунт: http://localhost:8080/user/activate/"+user.getVerificationCode());
+
+        user.setActive(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
         log.info("Saving new User with email: {}" + email);
@@ -45,5 +51,12 @@ public class UserService {
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return new User();
         return userRepository.findByEmail(principal.getName());
+    }
+
+    public User getUserByActivationCode(String code){
+        return userRepository.findAll().stream()
+                .filter(u -> u.getVerificationCode().equals(code))
+                .findFirst()
+                .orElse(null);
     }
 }

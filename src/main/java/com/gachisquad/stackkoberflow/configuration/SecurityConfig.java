@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/registration", "/login").not().fullyAuthenticated()
                 .antMatchers("/question/ask", "question/add, /question/*/addAnswer").hasAnyRole()
-                .antMatchers( "/", "/question/*", "/images/**", "/static/**", "/user/*", "/user").permitAll()
+                .antMatchers( "/", "/question/*", "/images/**", "/static/**", "/user/*", "/user", "/user/activate/*").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
