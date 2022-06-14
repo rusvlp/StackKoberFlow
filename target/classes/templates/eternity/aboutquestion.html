@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Суть вопроса</title>
+</head>
+<body>
+    <div style="height: 20px; width: 600px; margin: 0 auto; text-align: center;"></div>
+    <div class="maindiv2">
+        <div class="logo2">
+            <div class="headerofsite"> StackKoberFlow </div>
+            <div class="logo"> <img src="images/soflogo.jpg"> </div>
+        </div>
+        <div class="blackline"></div>
+        <div class="infoaboutq">Информация о вопросе</div>
+        <div class="kratko">Краткая суть вопроса: </div>
+        <div class="samquestion">Сам вопрос: </div>
+        <div class="autor">Автор вопроса: </div>
+        <div class="rate_flex">Рейтинг: <div class="counter_rating" id="counter_rating1">0</div> </div>
+        <form action="/rateupdown" method="post">
+            <!--updown>Повысить рейтинг</updown--> <input type="submit" class="updown1" name="rateup1" value="Повысить рейтинг" id="rateup1">
+        </form>
+        <form action="/rateupdown" method="post">
+            <!--updown>Понизить рейтинг</updown--> <input type="submit" class="updown2" name="ratedown1" value="Понизить рейтинг" id="ratedown1">
+        </form>
+        <div class="kratko">Изображения к вопросу: <br>
+            <img src="images/Emma3.jpg">
+            <img src="images/AKUZQaqFDLM.jpg">
+            <img src="images/neverland.jpg">
+            <img src="images/Emma3.jpg">
+            <img src="images/AKUZQaqFDLM.jpg">
+            <img src="images/neverland.jpg">
+            <img src="images/Emma3.jpg">
+            <img src="images/AKUZQaqFDLM.jpg">
+            <img src="images/neverland.jpg">
+        </div>
+        <!--button type="button" name="searchbtn2" style="margin-bottom: 20px; margin-left: 10px;"><naiti> <a href="deletequestion.html"><aa>Удалить вопрос</aa></a> </naiti></button-->
+        <form action="/ababa" method="post">
+            <input type="submit" name="searchbtn2" class="sbtn2" value="Удалить вопрос">
+        </form>
+        <button type="button" name="toindex" style="margin-bottom: 20px; margin-left: 10px;"><a href="index.html"><toi>Вернуться на главную</toi></a></button>
+        <!--form action="/ababa" method="post">
+            <input type="submit" name="toindex" class="sbtntoi" value="Вернуться на главную">
+        </form-->
+    </div>
+
+    <div class="maindiv2" style="margin-top: 15px;">
+        <div class="infoaboutq" style="padding-top: 10px;">Ответ</div>
+        <div class="autor">Автор: </div>
+        <div class="samquestion">Ответ: </div>
+        <div class="rate_flex">Рейтинг: <div class="counter_rating" id="counter_rating2">0</div> </div>
+        <form action="/rateupdown" method="post">
+            <!--updown>Повысить рейтинг</updown--> <input type="submit" class="updown1" name="rateup2" value="Повысить рейтинг" id="rateup2">
+        </form>
+        <form action="/rateupdown" method="post">
+            <!--updown>Понизить рейтинг</updown--> <input type="submit" class="updown2" name="ratedown2" value="Понизить рейтинг" id="ratedown2">
+        </form>
+        <div class="kratko">Изображения к ответу: </div>
+        <form action="/reshenie" method="post">
+            <input type="submit" name="reshenie" class="sbtntoi" value="Пометить как решение">
+        </form>
+        <form action="/ababa" method="post">
+            <input type="submit" name="searchbtn2" class="sbtn2" value="Удалить ответ">
+        </form>
+        <!--button type="button" name="searchbtn2" style="margin-bottom: 20px; margin-left: 10px;"><naiti> <a href="deletequestion.html"><aa>Удалить ответ</aa></a> </naiti></button-->
+    </div>
+
+    <div class="otvet">
+        <div class="answer">Ответить на вопрос:</div>
+        <form action="/ask" method="post">
+            <ep>Ваш ответ на вопрос:</ep> <textarea name="questionmax" class="txtarea"></textarea><br>
+        </form>
+        <div class="autorization">Прикрепите изображения: </div>
+        <div class="page-block">
+            <button type="button" name="searchbtn2"><su2>Выберите файл</su2></button> <su2>Файл не выбран</su2> 
+        </div>
+        <button type="button" class="addBtn">+</button> <br> 
+        <!--button type="button" name="searchbtn2" style="margin-bottom: 20px;"><naiti> <a href="aboutquestion.html"><aa>Ответить</aa></a> </naiti></button-->
+        <form action="/ababa" method="post">
+            <input type="submit" name="answerbtn1" class="sbtn2" value="Ответить">
+        </form>
+    </div>
+    
+    <script src="scripts4.js"></script>
+</body>
+</html>
+
