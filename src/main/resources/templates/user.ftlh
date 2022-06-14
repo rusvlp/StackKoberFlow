@@ -28,9 +28,13 @@
             <#if user.id == subject.id>
                 <div class="kartochka_password_smena">Смена пароля</div>
                 <form action="/user/${user.id}/changePassword" name="publish" id ="regform" method="post" style="margin-left: 20px;">
-                    <ep>Новый пароль: </ep><input type="password" class="ep" name="newPassword" id="pass1"><br>
-                    <ep>Повторите пароль: </ep><input type="password" class="ep" name="password2" id="pass2"><br>
+                    <ep>Старый пароль: </ep><input type="password" class="ep" name="oldPassword" required><br>
+                    <ep>Новый пароль: </ep><input type="password" class="ep" name="newPassword" id="pass1" required><br>
+                    <ep>Повторите пароль: </ep><input type="password" class="ep" name="password2" id="pass2" required><br>
                     <div class="nopass" id="nopass">Пароли не совпадают!</div>
+                    <#if errormsg??>
+                        <div class="nopass">Неверный пароль!</div>
+                    </#if>
                     <input type="hidden" name = "_csrf" value = "${_csrf.token}">
 
                 </form>

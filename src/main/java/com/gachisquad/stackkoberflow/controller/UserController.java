@@ -64,10 +64,16 @@ public class UserController {
 
 
     @PostMapping("/user/{id}/changePassword")
-    public String changePassword(@PathVariable Long id, Principal p, @RequestParam(name="newPassword") String newPassword, Model model){
+    public String changePassword(@PathVariable Long id, Principal p, @RequestParam(name="newPassword") String newPassword,@RequestParam(name = "oldPassword") String oldPassword, Model model){
         if (id != userService.getUserByPrincipal(p).getId())
             return "passwordNotUpdated";
         User user = userService.getUserById(id);
+        if(!passwordEncoder.matches(oldPassword, user.getPassword())){
+            model.addAttribute("user", userService.getUserByPrincipal(p));
+            model.addAttribute("subject", user);
+            model.addAttribute("errormsg", "Неверный пароль!");
+            return "user";
+        }
         user.setPassword(passwordEncoder.encode(newPassword));
         model.addAttribute("user", user);
         userService.saveUser(user);

@@ -99,12 +99,13 @@
             </#list>
 
 
-            <#if user?? && user.email?? && user.id == solution.author.id>
+            <#if user?? && user.email?? && user.id == question.author.id>
                 <form action="/answer/${solution.id}/demark" method="post">
                     <input type="hidden" name = "_csrf" value = "${_csrf.token}">
                     <input type="submit" name="reshenie" class="sbtntoi" value="Снять пометку решения">
                 </form>
-
+             </#if>
+             <#if user?? && user.email?? && user.id == solution.author.id>
                 <form action="/answer/${solution.id}/delete" method="post">
                     <input type="hidden" name = "_csrf" value = "${_csrf.token}">
                     <input type="submit" name="searchbtn2" class="sbtn2" value="Удалить ответ">
@@ -138,11 +139,13 @@
             </#list>
 
 
-        <#if user?? && user.email?? && user.id == answer.author.id>
+        <#if user?? && user.email?? && user.id == question.author.id>
         <form action="/answer/${answer.id}/markAsSolution" method="post">
             <input type="hidden" name = "_csrf" value = "${_csrf.token}">
             <input type="submit" name="reshenie" class="sbtntoi" value="Пометить как решение">
         </form>
+        </#if>
+        <#if user?? && user.email?? && user.id == answer.author.id>
         <form action="/answer/${answer.id}/delete" method="post">
             <input type="hidden" name = "_csrf" value = "${_csrf.token}">
             <input type="submit" name="searchbtn2" class="sbtn2" value="Удалить ответ">
