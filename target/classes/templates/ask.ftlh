@@ -10,6 +10,15 @@
                 <ep>Краткая суть вопроса:</ep> <input type="text" class="ep" name="title"><br>
                 <ep>Сам вопрос:</ep> <textarea name="questionItself" class="txtarea"></textarea><br>
                 <input type = "hidden" name = "_csrf" value="${_csrf.token}">
+                <ep>Укажите категорию вопроса:</ep>
+                    <select name = "cid">
+                        <#list categories as category>
+                            <option value = "${category.id}">${category.title}</option>
+                        <#else>
+                            <option value="-1">Нет категорий</option>
+                        </#list>
+                    </select>
+
                 <div class = "numberOfImagesBlock" display = "none">
                     <input type ="hidden" name = "noi" value = "0" id = "noi">
                 </div>

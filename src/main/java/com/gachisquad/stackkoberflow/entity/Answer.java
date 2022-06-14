@@ -25,7 +25,10 @@ public class Answer {
     @Column(name = "rating")
     private Integer rating;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "answer")
+    @Column(name = "is_solution")
+    private Boolean isSolution;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer")
     private List<Image> image = new ArrayList<>();
 
     @ToString.Exclude
@@ -43,10 +46,10 @@ public class Answer {
         this.image.add(image);
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<User> increased = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<User> decreased = new ArrayList<>();
 
     public void addIncreased(User user){

@@ -4,4 +4,6 @@ import com.gachisquad.stackkoberflow.entity.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
+    @Override
+    void deleteById(Long aLong);
 }

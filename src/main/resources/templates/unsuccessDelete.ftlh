@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ошибка: невозможно удалить</title>
-</head>
-<body>
-    <h3>Невозможно удалить вопрос, так как вы не являетесь его автором!</h3>
-</body>
-</html>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
+<div class="voprosov_net">
+    <h3>Невозможно удалить элемент, так как вы не являетесь его автором!</h3>
+</div>
+</@t.template>

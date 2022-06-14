@@ -5,10 +5,7 @@ import com.gachisquad.stackkoberflow.entity.Question;
 import com.gachisquad.stackkoberflow.entity.User;
 import com.gachisquad.stackkoberflow.request.QuestionWithImageRequest;
 import com.gachisquad.stackkoberflow.respond.StringRespond;
-import com.gachisquad.stackkoberflow.services.ImageService;
-import com.gachisquad.stackkoberflow.services.QuestionService;
-import com.gachisquad.stackkoberflow.services.QuestionWithImageRequestService;
-import com.gachisquad.stackkoberflow.services.UserService;
+import com.gachisquad.stackkoberflow.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -31,12 +28,14 @@ public class QuestionController {
     private final ImageService imageService;
     private final QuestionWithImageRequestService qws;
     private final UserService userService;
+    private final CategoryService categoryService;
 
-    public QuestionController(QuestionService qs, ImageService is, QuestionWithImageRequestService qws, UserService us){
+    public QuestionController(QuestionService qs, ImageService is, QuestionWithImageRequestService qws, UserService us, CategoryService cs){
         this.questionService = qs;
         this.imageService = is;
         this.qws = qws;
         this.userService = us;
+        this.categoryService = cs;
     }
 
    /* @GetMapping("/question/ask")
@@ -46,7 +45,9 @@ public class QuestionController {
 
     @PostMapping("/question/add")
     public Long ask(Question q, Principal principal){
-
+        if(q.getCid() !=-1){
+            q.setCategory(categoryService.getCategoryById(q.getCid()));
+        }
         int numberOfImages = q.noi;
         if (numberOfImages > 0){
             QuestionWithImageRequest qi = new QuestionWithImageRequest(q, numberOfImages, this.questionService, this.qws, principal);
@@ -84,10 +85,14 @@ public class QuestionController {
     public ModelAndView deleteQuestion(@PathVariable Long id, Principal p){
         if (userService.getUserByPrincipal(p) != questionService.getQuestionById(id).getAuthor()){
             ModelAndView mav = new ModelAndView("unsuccessDelete");
+            mav.addObject("user", userService.getUserByPrincipal(p));
+            return mav;
         }
         System.out.println("deleted question " + id);
         ModelAndView mav = new ModelAndView("successDeleted");
         mav.addObject("questionTitle", questionService.getQuestionById(id).getTitle());
+        mav.addObject("user", userService.getUserByPrincipal(p));
+
         System.out.println(p);
         questionService.deleteQuestion(id);
 

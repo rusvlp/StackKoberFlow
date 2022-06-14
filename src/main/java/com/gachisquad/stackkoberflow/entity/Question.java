@@ -32,6 +32,7 @@ public class Question {
     @Column(name = "rating")
     private Integer rating;
 
+    private Long cid;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")   //при загрузке вопроса (к примеру при отображении в списке), все фотографии не загружаются (а зачем нам впустую тратить ресурсы?)
                                                                                             //при удалении вопроса удаляются и все связанные с ним фотографии, при сохранении вопрос сохраняются все связанные с ним фотографии
@@ -51,13 +52,16 @@ public class Question {
     @JoinColumn
     private User author;
 
+    @OneToOne
+    private Category category;
+
     public void addImageToQuestion(Image image){
         image.setQuestion(this);
         this.images.add(image);
     }
 
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "question")
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
     public void addAnswer(Answer a){

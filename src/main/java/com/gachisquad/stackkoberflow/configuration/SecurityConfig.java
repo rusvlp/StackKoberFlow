@@ -3,6 +3,7 @@ package com.gachisquad.stackkoberflow.configuration;
 import com.gachisquad.stackkoberflow.services.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.CachingUserDetailsService;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/registration", "/login").not().fullyAuthenticated()
                 .antMatchers("/question/ask", "question/add, /question/*/addAnswer").hasAnyRole()
-                .antMatchers( "/", "/question/*", "/images/**", "/static/**").permitAll()
+                .antMatchers( "/", "/question/*", "/images/**", "/static/**", "/user/*", "/user").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()

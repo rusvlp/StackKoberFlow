@@ -57,7 +57,7 @@ public class AnswerController {
         //qi.getQuestion().getId();
     }
 
-    @PostMapping("/answer/{id}/increase")
+    @PostMapping("/answer/{id}/increaseRating")
     public ModelAndView increase(@PathVariable Long id, Principal p){
         User user = userService.getUserByPrincipal(p);
         Answer answer = answerService.getAnswerById(id);
@@ -74,12 +74,79 @@ public class AnswerController {
             answer.addIncreased(user);
         }
 
-        question.setRating(question.getRating()+1);
+        answer.setRating(answer.getRating()+1);
 
-        questionService.saveQuestion(question);
-        return new ModelAndView("redirect:/question/" + id);
+        answerService.saveAnswer(answer);
+        return new ModelAndView("redirect:/question/" + answer.getQuestion().getId());
     }
 
+    @PostMapping("/answer/{id}/delete")
+    public ModelAndView deleteAnswer(@PathVariable Long id, Principal p){
+        if(answerService.getAnswerById(id).getAuthor() != userService.getUserByPrincipal(p)){
+            ModelAndView mav = new ModelAndView("unsuccessDelete");
+            mav.addObject("user", userService.getUserByPrincipal(p));
+            return mav;
+        }
+        ModelAndView mav = new ModelAndView("sda");
+        mav.addObject("user", userService.getUserByPrincipal(p));
+        answerService.deleteAnswer(id);
+        return mav;
+    }
+
+    @PostMapping("/answer/{id}/decreaseRating")
+    public ModelAndView decrease(@PathVariable Long id, Principal p){
+        User user = userService.getUserByPrincipal(p);
+        Answer answer = answerService.getAnswerById(id);
+
+        if (answer.getDecreased().contains(user)){
+            ModelAndView mav = new ModelAndView("unsuccess");
+            mav.addObject("text", "понизить рейтинг ответа, так как вы его уже понижали!");
+            mav.addObject("user", user);
+            return mav;
+        }
+
+        if (answer.getIncreased().contains(user)){
+            answer.removeIncreased(user);
+        } else {
+            answer.addDecreased(user);
+        }
+
+        answer.setRating(answer.getRating()-1);
+
+
+        answerService.saveAnswer(answer);
+        return new ModelAndView("redirect:/question/" + answer.getQuestion().getId());
+    }
+
+    @PostMapping("/answer/{id}/markAsSolution")
+    public ModelAndView markAsSolution(@PathVariable Long id, Principal p){
+        Answer a = answerService.getAnswerById(id);
+        Question q = a.getQuestion();
+        Answer marked = q.getAnswers()
+                        .stream()
+                        .filter(answer -> answer.getIsSolution() == true)
+                        .findFirst()
+                        .orElse(null);
+
+        if (marked != null){
+            ModelAndView mav = new ModelAndView("unsuccess");
+            mav.addObject("user", userService.getUserByPrincipal(p));
+            mav.addObject("text", "пометить ответ как решение, так как уже помечен другой ответ");
+            return mav;
+        }
+        a.setIsSolution(true);
+        answerService.saveAnswer(a);
+        ModelAndView mav = new ModelAndView("redirect:/question/" + q.getId());
+        return mav;
+    }
+
+    @PostMapping("/answer/{id}/demark")
+    public ModelAndView demark(@PathVariable Long id){
+        Answer a = answerService.getAnswerById(id);
+        a.setIsSolution(false);
+        answerService.saveAnswer(a);
+        return new ModelAndView("redirect:/question/" + a.getQuestion().getId());
+    }
 
 }
 

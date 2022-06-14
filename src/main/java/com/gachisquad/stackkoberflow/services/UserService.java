@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 
@@ -17,6 +18,16 @@ import java.security.Principal;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+
+
+    public User getUserById(Long id){
+        return userRepository.getById(id);
+    }
+
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
 
     public boolean createUser(User user){
         String email = user.getEmail();

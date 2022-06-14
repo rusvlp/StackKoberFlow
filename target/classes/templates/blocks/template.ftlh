@@ -15,8 +15,8 @@
                 <input type="hidden" name = "_csrf" value = "${_csrf.token}">
                 <button type="button" name="signup" onclick="logout()"><a class="signup"> <su>Выйти</su> </a></button>
             </form>
-            <a href="/question/ask/"><aa>Задать вопрос</aa></a>
-            <div class="nameofuser">${user.email}</div>
+            <a href="/question/ask/"><aaaa>Задать вопрос</aaaa></a>
+            <div class="nameofuser"><a style="text-decoration: none; color: black" href = "/user/${user.id}">${user.email}</a></div>
         <#else>
             <button type="button" name="signup"><a href="/login" class="signup"> <su>Войти</su> </a></button>
         </#if>

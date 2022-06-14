@@ -997,7 +997,7 @@ naiti {
 }
 
 .maindiv2{
-    width: 600px;
+    width: 1000px;
     height: auto;
     margin: 0 auto;
     text-align: left;
@@ -1241,9 +1241,7 @@ input[type="checkbox"]:checked~.questioninspisok{
     position: relative;
     top: 10px;
     bottom: 5px;
-    left: 30px;
     width: 1000px;
-    margin: 0 auto;
     height: 160px;
     box-sizing: border-box;
     background: rgb(221, 221, 221);
@@ -1284,8 +1282,8 @@ input[type="checkbox"]:checked~.questioninspisok{
     height: 60px;
     margin: 10px;
     border: 2px solid #000;
-    border-radius: 30px;
-    -moz-border-radius: 30px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -1323,4 +1321,364 @@ input[type="checkbox"]:checked~.questioninspisok{
 .worse{
     color: red;
     border: 2px solid red;
+}
+
+
+.otvet{
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+    background: #ebebeb;
+}
+
+.answer{
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 22px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.nopass {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    height: 20px;
+    color: red;
+    display: none;
+}
+
+.nopassvisible {
+    display: block;
+}
+
+updown {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 15px;
+    margin-right: 5px;
+    color: #000000;
+}
+
+.updown1 {
+    width: 150px;
+    height: 30px;
+    margin: 3px;
+    margin-left: 20px;
+    background: green;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+    outline: none;
+}
+
+.updown2 {
+    width: 150px;
+    height: 30px;
+    margin: 3px;
+    margin-left: 20px;
+    background: red;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+    outline: none;
+}
+
+.counter_rating{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 3px;
+}
+
+.rate_flex{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 15px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+img {
+    width: 150px;
+}
+
+.sbtntoi {
+    width: auto;
+    height: 30px;
+    margin-top: 10px;
+    background: #FFFFFF;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+    outline: none;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #000000;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.sbtn2{
+    width: auto;
+    height: 30px;
+    margin-top: 10px;
+    background: #FFFFFF;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+    outline: none;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    color: #000000;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.sbtn2:hover, .sbtntoi:hover {
+    opacity: 0.8;
+    transition: 0.5s;
+    background: #cecece;
+}
+
+input[type="checkbox"]:checked~.voprosov_net{
+    left: 0;
+}
+
+.voprosov_net{
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    top: 0px;
+    left: 30px;
+    width: 1300px;
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    background: rgb(221, 221, 221);
+    transition: 0.3s;
+    color: #000;
+    font-size: 18px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 20px;
+}
+
+.voprosov_net:hover, .kartochka:hover{
+    transition: 0.7s;
+    background: rgb(230, 230, 230);
+}
+
+.lk1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.my_questions{
+    display: flex;
+    flex-direction: column;
+}
+
+.kartochka{
+    width: 500px;
+    height: 700px;
+    background: rgb(221, 221, 221);
+}
+
+.avatar, .avatar_2{
+    width: 110px;
+    height: 110px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: #c96fc9;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar img {
+    height: auto;
+    width: 100%;
+}
+
+.avatar_2 img {
+    height: 100%;
+    width: auto;
+}
+
+.aq_flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.kartochka_name{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 15px;
+}
+
+.kartochka_password_smena {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 15px;
+    text-align: center;
+}
+
+.del_sbtn2{
+    width: auto;
+    height: 30px;
+    margin-top: 10px;
+    background: #ff7b7b;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+    outline: none;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    color: #000000;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.del_sbtn2:hover{
+    opacity: 0.8;
+    transition: 0.6s;
+    background: #db2424;
+}
+
+aaaa {
+    width: auto;
+    height: 30px;
+    margin-left: 5px;
+    background: #FFFFFF;
+    border: 1px solid black;
+    cursor: pointer;
+    outline: none;
+    margin-right: 15px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #000000;
+    padding: 7px;
+}
+
+aaaa:hover {
+    opacity: 0.8;
+    transition: 0.5s;
+    background: #cecece;
+}
+
+naiti_sort {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+button[name = "searchbtn_sort"]{
+    width: auto;
+    height: 45px;
+    margin: 10px;
+    background: #FFFFFF;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+    outline: none;
+}
+
+button[name = "searchbtn_sort"]:hover {
+    opacity: 0.8;
+    transition: 0.5s;
+    background: #cecece;
+}
+
+.sort_flex{
+    position: relative;
+    height: auto;
+    margin-top: 10px;
+    left: 40px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+input[type="checkbox"]:checked~.sortirovka, input[type="checkbox"]:checked~.sort_flex, input[type="checkbox"]:checked~.sortirovka_kat{
+    left: 0;
+}
+
+.sortirovka{
+    position: relative;
+    width: 200px;
+    height: auto;
+    background: rgb(221, 221, 221);
+    top: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    margin-right: 20px;
+}
+
+.sortirovka:hover{
+    background: rgb(230, 230, 230);
+}
+
+.sortirovka_kat{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: 20px;
+    background: rgb(221, 221, 221);
+    top: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.sortirovka_kat:hover{
+    background: rgb(230, 230, 230);
+}
+
+.imageReveal:hover{
+    cursor: pointer;
 }

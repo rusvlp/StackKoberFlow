@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Вопрос успешно удален</title>
-    </head>
-    <body>
-        <h1>Вопрос ${questionTitle} успешно удален</h1>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
+    <div class="voprosov_net">
+        Вопрос ${questionTitle} успешно удален
         <a href = "/">На главную</a>
-    </body>
-</html>
+    </div>
+</@t.template>

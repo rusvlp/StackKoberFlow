@@ -6,6 +6,7 @@ import com.gachisquad.stackkoberflow.repository.AnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 
 @Service
@@ -19,6 +20,7 @@ public class AnswerService {
         userService.getUserByPrincipal(principal).addAnswer(answer);
         System.out.println("added answer: " + answer.toString());
         answer.setId(null);
+        answer.setIsSolution(false);
         answer.setRating(0);
         answerRepository.save(answer);
     }
@@ -29,5 +31,11 @@ public class AnswerService {
 
     public Answer getAnswerById(Long id){
         return this.answerRepository.findById(id).orElseThrow(() -> new NotFoundException());
+    }
+
+    @Transactional
+    public void deleteAnswer(Long id){
+        System.out.println("deleted answer" + id);
+        this.answerRepository.delete(this.answerRepository.getById(id));
     }
 }

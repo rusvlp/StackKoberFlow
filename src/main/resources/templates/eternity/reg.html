@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Registration</title>
+</head>
+<body>
+    <div style="height: 150px; width: 600px; margin: 0 auto; text-align: center;"></div>
+    <div class="maindiv">
+        <div class="logo2">
+            <div class="headerofsite"> StackKoberFlow </div>
+            <div class="logo"> <img src="images/soflogo.jpg"> </div>
+        </div>
+        <div class="blackline"></div>
+        <div class="autorization">Регистрация</div>
+        <form action="/registration" name="publish" method="post">
+            <ep>Имя пользователя: </ep><input type="text" class="ep" name="username"><br>
+            <ep>Электронная почта: </ep><input type="email" class="ep" name="email"><br>
+            <ep>Пароль: </ep><input type="password" class="ep" name="password1" id="pass1"><br>
+            <div class = "passConf">
+                 <ep>Повторите пароль: </ep><input type="password" class="ep" name="password2" id="pass2"><br>
+            </div>
+            <div class="nopass" id="nopass">Пароли не совпадают!</div>
+            <!--input type="hidden" name="_csrf" value="e9771b51-b5cc-4cc7-8423-01774957d1c9"-->
+            <input type="submit" class="submit" value="Регистрация">
+        </form>
+        <div class="blackline"></div>
+        <div class="registration">Есть аккаунт? <a href="signup.html" class="registration"> <reg>Войдите!</reg> </a></div>
+        <div class="blackline"></div>
+        <div class="toindex" style="padding-bottom: 15px;">
+            <button type="button" name="toindex3"><a href="index.html"><toi>Вернуться на главную</toi></a></button>
+        </div>
+    </div>
+
+    <script src="scripts3.js"></script>
+</body>
+</html>
