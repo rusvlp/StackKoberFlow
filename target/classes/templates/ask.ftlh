@@ -1,4 +1,4 @@
-<#import "blocks/template.ftlh" as t>
+gk<#import "blocks/template.ftlh" as t>
     <@t.template user>
 
         <div style="height: 150px; width: 600px; margin: 0 auto; text-align: center;"></div>
