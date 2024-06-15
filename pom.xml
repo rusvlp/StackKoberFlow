@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>stackKoberFlow</name>
     <description>stackKoberFlow</description>
+    <packaging>war</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -86,6 +87,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>21</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
