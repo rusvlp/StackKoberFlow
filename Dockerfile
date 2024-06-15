@@ -4,5 +4,5 @@ RUN mkdir application
 ADD ./ ./application
 WORKDIR ./application
 RUN ls && pwd
-#RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
 CMD ./start.sh
