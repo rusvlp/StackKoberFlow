@@ -54,7 +54,7 @@ public class AnswerWithImageRequest {
         if (this.answer.getImage().size() == this.numberOfImages){
             System.out.println("question added");
             as.addAnswer(this.answer, principal);
-            mailSender.send(email, "У вас новый ответ на вопрос!", "Кто-то ответил на ваш вопрос, проверьте: http://localhost:8080/question/"+this.answer.getId());
+            mailSender.send(email, "У вас новый ответ на вопрос!", "Кто-то ответил на ваш вопрос, проверьте: http://185.204.3.111/question/"+this.answer.getId());
             return;
         }
     }

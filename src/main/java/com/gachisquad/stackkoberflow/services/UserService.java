@@ -38,7 +38,7 @@ public class UserService {
 
         user.setVerificationCode(UUID.randomUUID().toString());
 
-        mailSender.send(user.getEmail(), "Регистрация на StackKoberFlow", "Добро пожаловать на StackKoberFlow! Перейдите по следующей ссылке, чтобы активировать аккаунт: http://localhost:8080/user/activate/"+user.getVerificationCode());
+        mailSender.send(user.getEmail(), "Регистрация на StackKoberFlow", "Добро пожаловать на StackKoberFlow! Перейдите по следующей ссылке, чтобы активировать аккаунт: http://185.204.3.111/user/activate/"+user.getVerificationCode());
         System.out.println(user.getVerificationCode());
         user.setActive(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

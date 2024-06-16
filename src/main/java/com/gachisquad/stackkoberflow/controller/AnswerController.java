@@ -39,7 +39,7 @@ public class AnswerController {
             return (long)ai.getId();
         } else{
             answerService.addAnswer(a, principal);
-            mailSender.send(questionService.getQuestionById(id).getAuthor().getEmail(), "У вас новый ответ на вопрос!", "Кто-то ответил на ваш вопрос, проверьте: http://localhost:8080/question/"+id);
+            mailSender.send(questionService.getQuestionById(id).getAuthor().getEmail(), "У вас новый ответ на вопрос!", "Кто-то ответил на ваш вопрос, проверьте: http://185.204.3.111/question/"+id);
         }
         System.out.println(a.getId());
         return a.getId();
